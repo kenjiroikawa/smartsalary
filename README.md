@@ -1,0 +1,2 @@
+# smartsalary
+スマートサラリー
