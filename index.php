@@ -222,6 +222,7 @@ foreach ($events as $event) {
     if ($start == 'スタート') {
       $bot->replyText($event->getReplyToken(), 'シミュレーションを開始します', '勤務先の都道府県を入力してください');
 
+      // 都道府県の入力の受取。後ほど他プログラムで都道府県毎の現物支給額呼び出しを設定する。
       foreach ($events as $event) {
         if (!($event instanceof \LINE\LINEBot\Event\MessageEvent)) {
             error_log('Non message event has come');
@@ -239,9 +240,9 @@ foreach ($events as $event) {
             } else {
               $bot->replyText($event->getReplyToken(),'大変申し訳ございません。東京以外の地域について現在未対応です。');
             }
-
+      }
+      // 都道府県の入力の終了
     } else {
       $bot->replyText($event->getReplyToken(), 'シミュレーションを開始する場合は「スタート」と入力してください');
     }
-}
 ?>
