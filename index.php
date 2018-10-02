@@ -62,7 +62,7 @@ function replyTextMessage($bot, $replyToken, $text){
 // 画像を返信。引数はLINEBot、返信先、画像URL、サムネイルURL
 function replyImageMessage($bot, $replyToken, $originalImageUrl,$previewImageUrl){
   // ImageMessageBuilderの引数は画像URL、サムネイルURL
-  $response = $bot->replyMessage($replyToken new \LINE\LINEBot\
+  $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\
                         MessageBuilder\ImageMessageBuilder(
                           $originalImageUrl, $previewImageUrl));
   if (!response->isSucceeded()){
