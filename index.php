@@ -192,7 +192,7 @@ function replyConfirmTemplate($bot, $replyToken, $alternativeText, $text,
 // Carouselテンプレートを返信。引数はLINEBot、返信先、代替テキスト、
 // ダイアログの配列
 function replyCarouselTemplate($bot, $replyToken, $alternativeText,
-                              $columnArray {
+                              $columnArray) {
   $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
     $alternativeText,
     // Carouselテンプレートの引数はダイアログの配列
