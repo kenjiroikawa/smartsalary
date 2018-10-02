@@ -65,7 +65,7 @@ function replyImageMessage($bot, $replyToken, $originalImageUrl,$previewImageUrl
   $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\
                         MessageBuilder\ImageMessageBuilder(
                           $originalImageUrl, $previewImageUrl));
-  if (!response->isSucceeded()){
+  if (!$response->isSucceeded()){
     error_log( 'Failed!'. $response->getHTTPSatus . ' ' .
                               $response->getRawBody());
   }
@@ -79,7 +79,7 @@ function replyLocationMessage($bot, $replyToken, $title, $address,$lat,
   $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\
                               MessageBuilder\LocationMessageBuilder(
                               $title, $address, $lat, $lon));
-  if (!response->isSucceeded()) {
+  if (!$response->isSucceeded()) {
     error_log('Failed!'. $response->getHTTPStatus . ' ' .
                               $response->getRawBody());
   }
@@ -93,7 +93,7 @@ function replyStickerMessage($bot, $replyToken, $packageId,
   $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\
                               MessageBuilder\StickerMessageBuilder(
                               $packageId, $stickerId));
-  if (!response->isSucceeded()){
+  if (!$response->isSucceeded()){
     error_log('Failed!'. $response->getHTTPStatus .' ' .
                               $response->getRawBody());
   }
@@ -107,7 +107,7 @@ function replyVideoMessage($bot, $replyToken, $originalContentUrl,
   $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\
                               MessageBuilder\VideoMessageBuilder(
                               $originalContentUrl, $previewImageUrl));
-  if (!response->isSucceeded()){
+  if (!$response->isSucceeded()){
     error_log('Failed!'. $response->getHTTPStatus .' ' .
                               $response->getRawBody());
   }
@@ -121,7 +121,7 @@ function replyAudioMessage($bot, $replyToken, $originalContentUrl,
   $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\
                               MessageBuilder\AudioMessageBuilder(
                               $originalContentUrl, $audioLength));
-  if (!response->isSucceeded()){
+  if (!$response->isSucceeded()){
     error_log('Failed!'. $response->getHTTPStatus .' ' .
                               $response->getRawBody());
   }
@@ -137,7 +137,7 @@ function replyMultiMessage($bot, $replyToken, ...$msgs) {
     $builder->add($value);
   }
   $response = $bot->replyMessage($replyToken, $builder);
-  if (!response->isSucceeded()){
+  if (!$response->isSucceeded()){
     error_log('Failed!'. $response->getHTTPStatus .' ' .
                               $response->getRawBody());
   }
@@ -162,7 +162,7 @@ function replyBottonsTemplate($bot, $replyToken, $alternativeText,
                               $title, $text, $imageUrl, $actionArray)
   );
   $response = $bot->replyMessage($replyToken, $builder);
-  if (!response->isSucceeded()){
+  if (!$response->isSucceeded()){
     error_log('Failed!'. $response->getHTTPStatus .' ' .
                             $response->getRawBody());
   }
@@ -183,7 +183,7 @@ function replyConfirmTemplate($bot, $replyToken, $alternativeText, $text
                               ConfirmTemplateBuilder($text, $actionArray)
   );
   $response = $bot->replyMessage($replyToken, $builder);
-  if (!response->isSucceeded()){
+  if (!$response->isSucceeded()){
     error_log('Failed!'. $response->getHTTPStatus .' ' .
                             $response->getRawBody());
   }
@@ -200,7 +200,7 @@ function replyCarouselTemplate($bot, $replyToken, $alternativeText,
                               CarouselTemplateBuilder($columnArray)
   );
   $response = $bot->replyMessage($replyToken, $builder);
-  if (!response->isSucceeded()){
+  if (!$response->isSucceeded()){
     error_log('Failed!'. $response->getHTTPStatus .' ' .
                             $response->getRawBody());
   }
