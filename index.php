@@ -216,6 +216,13 @@ foreach ($events as $event) {
     continue;
   }
   // オウム返し
-  $bot->replyText($event->getReplyToken(), $event->getText());
+  // $bot->replyText($event->getReplyToken(), $event->getText());
+
+  $start = $event->getText();
+    if ($start == 'スタート') {
+      $bot->replyText($event->getReplyToken(), 'シミュレーションを開始します';
+    } else {
+      $bot->replyText($event->getReplyToken(), 'シミュレーションを開始する場合は「スタート」と入力してください';
+    }
 }
 ?>
