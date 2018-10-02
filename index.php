@@ -32,7 +32,7 @@ try{
 
 // 配列に格納された各イベントをループで処理
 foreach ($events as $event){
-  // MessageEventクラスのインスタンでなければ処理をスキップ
+  // MessageEventクラスのインスタンスでなければ処理をスキップ
   if (!($event instanceof \LINE\LINEBot\Event\MessageEvent)) {
     error_log('Non message event has come');
     continue;
@@ -220,8 +220,8 @@ foreach ($events as $event) {
 
   $start = $event->getText();
     if ($start == 'スタート') {
-      $bot->replyText($event->getReplyToken(), 'シミュレーションを開始します');
-      $bot->replyText($event->getReplyToken(), '勤務先の都道府県を入力してください');
+      $bot->replyText($event->getReplyToken(), 'シミュレーションを開始します', '勤務先の都道府県を入力してください');
+//      $bot->replyText($event->getReplyToken(), '勤務先の都道府県を入力してください');
     } else {
       $bot->replyText($event->getReplyToken(), 'シミュレーションを開始する場合は「スタート」と入力してください');
     }
