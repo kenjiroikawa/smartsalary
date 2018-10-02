@@ -170,7 +170,7 @@ function replyBottonsTemplate($bot, $replyToken, $alternativeText,
 
 // Confirmテンプレートを返信。引数はLINEBot、返信先、代替テキスト、
 // 本文、アクション（可変長引数）
-function replyConfirmTemplate($bot, $replyToken, $alternativeText, $text
+function replyConfirmTemplate($bot, $replyToken, $alternativeText, $text,
                               ...$actions){
   $actionArray = array();
   foreach($actions as $value) {
