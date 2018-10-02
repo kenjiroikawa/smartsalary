@@ -220,9 +220,9 @@ foreach ($events as $event) {
 
   $start = $event->getText();
     if ($start == 'スタート') {
-      $bot->replyText($event->getReplyToken(), 'シミュレーションを開始します';
+      $bot->replyText($event->getReplyToken(), 'シミュレーションを開始します');
     } else {
-      $bot->replyText($event->getReplyToken(), 'シミュレーションを開始する場合は「スタート」と入力してください';
+      $bot->replyText($event->getReplyToken(), 'シミュレーションを開始する場合は「スタート」と入力してください');
     }
 }
 ?>
