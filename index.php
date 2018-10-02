@@ -245,4 +245,5 @@ foreach ($events as $event) {
     } else {
       $bot->replyText($event->getReplyToken(), 'シミュレーションを開始する場合は「スタート」と入力してください');
     }
+  }
 ?>
