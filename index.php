@@ -220,7 +220,10 @@ foreach ($events as $event) {
   // オウム返し
   $start = $event->getText();
     if ($start == 'スタート') {
+      //include('test.php');
       $bot->replyText($event->getReplyToken(), 'シミュレーションを開始します', '勤務先の都道府県を入力してください');
+      @prefecture = getText();
+      replyTextMessage($bot, $replyToken, $prefecture);
       // オウム返し。
         //$bot->replyText($event->getReplyToken(), $event->getText());
     } else {
