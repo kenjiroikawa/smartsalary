@@ -219,10 +219,9 @@ foreach ($events as $event) {
   }
   // オウム返し
   $inputs = $event->getText();
-  $input = explode(",",$inputs);
+  $input = explode("、",$inputs);
 
-  $bot->replyText($reply_token, $inputs);
-  $bot->replyText($reply_token, $input[0], $input[1], $input[2], $input[3]);
+  $bot->replyText($reply_token, $inputs, $input[0], $input[1], $input[2], $input[3]);
 
   //$bot->replyText($event->getReplyToken(), $event->getText());
 }
