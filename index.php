@@ -223,7 +223,8 @@ foreach ($events as $event) {
       //include('test.php');
       $bot->replyText($event->getReplyToken(), 'シミュレーションを開始します', '勤務先の都道府県を入力してください');
       $prefecture = $event->getText();
-      replyTextMessage($bot, $replyToken, $prefecture);
+      $text = $prefecture;
+      replyTextMessage($bot, $replyToken, $text);
       // オウム返し。
         //$bot->replyText($event->getReplyToken(), $event->getText());
     } else {
