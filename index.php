@@ -218,6 +218,9 @@ foreach ($events as $event) {
     continue;
   }
   // オウム返し
-  $bot->replyText($event->getReplyToken(), $event->getText());
+  $text = $event->getText();
+  $bot->replyText($reply_token, $text);
+
+  //$bot->replyText($event->getReplyToken(), $event->getText());
 }
 ?>
