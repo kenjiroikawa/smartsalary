@@ -222,7 +222,7 @@ foreach ($events as $event) {
     if ($start == 'スタート') {
       $bot->replyText($event->getReplyToken(), 'シミュレーションを開始します', '勤務先の都道府県を入力してください');
       // オウム返し。
-        $bot->replyText($event->getReplyToken(), $event->getText());
+        //$bot->replyText($event->getReplyToken(), $event->getText());
     } else {
       $bot->replyText($event->getReplyToken(), 'シミュレーションを開始する場合は「スタート」と入力してください');
     }
