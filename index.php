@@ -206,6 +206,8 @@ function replyCarouselTemplate($bot, $replyToken, $alternativeText,
   }
 }
 
+
+// シミュレーションプログラム開始
 foreach ($events as $event) {
   if (!($event instanceof \LINE\LINEBot\Event\MessageEvent)) {
       error_log('Non message event has come');
@@ -216,34 +218,6 @@ foreach ($events as $event) {
     continue;
   }
   // オウム返し
-  // $bot->replyText($event->getReplyToken(), $event->getText());
-
-  $start = $event->getText();
-    if ($start == 'スタート') {
-      $bot->replyText($event->getReplyToken(), 'シミュレーションを開始します', '勤務先の都道府県を入力してください');
-
-      // 都道府県の入力の受取。後ほど他プログラムで都道府県毎の現物支給額呼び出しを設定する。
-      foreach ($events as $event) {
-        if (!($event instanceof \LINE\LINEBot\Event\MessageEvent)) {
-            error_log('Non message event has come');
-            continue;
-        }
-        if (!($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
-          error_log('Non message event has come');
-          continue;
-        }
-
-          $prefecture = $event->getText();
-            if ($prefecture == '東京') {
-              $bot->replyText($event->getReplyToken(), '勤務地は東京ですね。現物支給額は1畳あたり2590円となります',
-              'お住まいの居住スペースの広さを入力してください。<br /><br />例えば、2LDK（リビング10畳、洋室6畳、和室6畳）の家の場合<br /><br />10 + 6 + 6 = 22<br /><br />22と入力してください。');
-            } else {
-              $bot->replyText($event->getReplyToken(),'大変申し訳ございません。東京以外の地域について現在未対応です。');
-            }
-      }
-      // 都道府県の入力の終了
-    } else {
-      $bot->replyText($event->getReplyToken(), 'シミュレーションを開始する場合は「スタート」と入力してください');
-    }
-  }
+  $bot->replyText($event->getReplyToken(), $event->getText());
+}
 ?>
