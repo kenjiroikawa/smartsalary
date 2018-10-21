@@ -957,6 +957,8 @@ if($dependants == 0 ){
 }else{
   $before_income_tax =  $before_dependant[7];
 }
+
+$before_income_tax_total = $before_income_tax * 12 ;
 //導入前：扶養家族に応じた源泉徴収額の計算 終了----------------------
 
 
@@ -982,7 +984,7 @@ if($dependants == 0 ){
 
 
   //所得控除
-  $before_income_deduction = $basic_deduction + $partner_deduction + $dependant_deduction + $before_social_insurance_total;
+  $before_income_deduction = $basic_deduction + $partner_deduction + $dependant_deduction + $before_social_insurance_total + $before_income_tax_total + $bonus_social_insurance + $bonus_income_tax;
 
   // 住民税計算用の課税対象金額の計算
   $before_inhabitant_tax_yearly = $before_yearly_income - $before_salary_deduction - $before_income_deduction ;
@@ -1444,6 +1446,8 @@ if($dependants == 0 ){
 }else{
   $after_income_tax =  $after_dependant[7];
 }
+
+$after_income_tax_total = $after_income_tax * 12 ; 
 // 導入後：扶養家族に応じた源泉徴収額の計算 終了----------------------
 
 
@@ -1466,7 +1470,7 @@ if($dependants == 0 ){
   }
 
   //所得控除
-  $after_income_deduction = $basic_deduction + $partner_deduction + $dependant_deduction + $after_social_insurance_total;
+  $after_income_deduction = $basic_deduction + $partner_deduction + $dependant_deduction + $after_social_insurance_total + $after_income_tax_total + $bonus_social_insurance + $bonus_income_tax;;
 
   // 住民税計算用の課税対象金額の計算
   $after_inhabitant_tax_yearly = $after_yearly_income - $after_salary_deduction - $after_income_deduction ;
