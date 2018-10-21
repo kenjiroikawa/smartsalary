@@ -306,10 +306,10 @@ if( $dependants == 0 ){
   elseif($bonus_pretax >= 764000 && $bonus_pretax < 804000){ $bonus_income_tax = floor($bonus_pretax * 26.546); }
   elseif($bonus_pretax >= 804000 && $bonus_pretax < 857000){ $bonus_income_tax = floor($bonus_pretax * 28.588); }
   elseif($bonus_pretax >= 857000 && $bonus_pretax < 926000){ $bonus_income_tax = floor($bonus_pretax * 30.63); }
-  elseif($bonus_pretax >= 926000 && $bonus_pretax < 1,321,000){ $bonus_income_tax = floor($bonus_pretax * 32.672); }
-  elseif($bonus_pretax >= 1,321,000 && $bonus_pretax < 1,532,000){ $bonus_income_tax = floor($bonus_pretax * 35.735); }
-  elseif($bonus_pretax >= 1,532,000 && $bonus_pretax < 2,661,000){ $bonus_income_tax = floor($bonus_pretax * 38.798); }
-  elseif($bonus_pretax >= 2,661,000 && $bonus_pretax < 3,548,000){ $bonus_income_tax = floor($bonus_pretax * 41.861); }
+  elseif($bonus_pretax >= 926000 && $bonus_pretax < 1321000){ $bonus_income_tax = floor($bonus_pretax * 32.672); }
+  elseif($bonus_pretax >= 1321000 && $bonus_pretax < 1532000){ $bonus_income_tax = floor($bonus_pretax * 35.735); }
+  elseif($bonus_pretax >= 1532000 && $bonus_pretax < 2661000){ $bonus_income_tax = floor($bonus_pretax * 38.798); }
+  elseif($bonus_pretax >= 2661000 && $bonus_pretax < 3548000){ $bonus_income_tax = floor($bonus_pretax * 41.861); }
   else{$bonus_income_tax = floor($bonus_pretax * 45.945);}
 }elseif( $dependants == 1 ){
   if($bonus_pretax < 94000){ $bonus_income_tax = 0; }
@@ -327,11 +327,11 @@ if( $dependants == 0 ){
   elseif($bonus_pretax >= 752000 && $bonus_pretax < 787000){ $bonus_income_tax = floor($bonus_pretax * 24.504); }
   elseif($bonus_pretax >= 787000 && $bonus_pretax < 826000){ $bonus_income_tax = floor($bonus_pretax * 26.546); }
   elseif($bonus_pretax >= 826000 && $bonus_pretax < 885000){ $bonus_income_tax = floor($bonus_pretax * 28.588); }
-  elseif($bonus_pretax >= 885000 && $bonus_pretax < 956,000){ $bonus_income_tax = floor($bonus_pretax * 30.63); }
-  elseif($bonus_pretax >= 956,000 && $bonus_pretax < 1,346,000){ $bonus_income_tax = floor($bonus_pretax * 32.672); }
-  elseif($bonus_pretax >= 1,346,000 && $bonus_pretax < 1,560,000){ $bonus_income_tax = floor($bonus_pretax * 35.735); }
-  elseif($bonus_pretax >= 1,560,000 && $bonus_pretax < 2,685,000){ $bonus_income_tax = floor($bonus_pretax * 38.798); }
-  elseif($bonus_pretax >= 2,685,000 && $bonus_pretax < 3,580,000){ $bonus_income_tax = floor($bonus_pretax * 41.861); }
+  elseif($bonus_pretax >= 885000 && $bonus_pretax < 956000){ $bonus_income_tax = floor($bonus_pretax * 30.63); }
+  elseif($bonus_pretax >= 956000 && $bonus_pretax < 1346000){ $bonus_income_tax = floor($bonus_pretax * 32.672); }
+  elseif($bonus_pretax >= 1346000 && $bonus_pretax < 1560000){ $bonus_income_tax = floor($bonus_pretax * 35.735); }
+  elseif($bonus_pretax >= 1560000 && $bonus_pretax < 2685000){ $bonus_income_tax = floor($bonus_pretax * 38.798); }
+  elseif($bonus_pretax >= 2685000 && $bonus_pretax < 3580000){ $bonus_income_tax = floor($bonus_pretax * 41.861); }
   else{$bonus_income_tax = floor($bonus_pretax * 45.945);}
 
 }elseif( $dependants == 2 ){
@@ -351,10 +351,10 @@ if( $dependants == 0 ){
 	elseif($bonus_pretax >= 810000 && $bonus_pretax < 852000){ $bonus_income_tax = floor($bonus_pretax * 26.546); }
 	elseif($bonus_pretax >= 852000 && $bonus_pretax < 914000){ $bonus_income_tax = floor($bonus_pretax * 28.588); }
 	elseif($bonus_pretax >= 914000 && $bonus_pretax < 987000){ $bonus_income_tax = floor($bonus_pretax * 30.63); }
-	elseif($bonus_pretax >= 987000 && $bonus_pretax < 1,370,000){ $bonus_income_tax = floor($bonus_pretax * 32.672); }
-	elseif($bonus_pretax >= 1,370,000 && $bonus_pretax < 1,589,000){ $bonus_income_tax = floor($bonus_pretax * 35.735); }
-	elseif($bonus_pretax >= 1,589,000 && $bonus_pretax < 2,708,000){ $bonus_income_tax = floor($bonus_pretax * 38.798); }
-	elseif($bonus_pretax >= 2,708,000 && $bonus_pretax < 3,611,000){ $bonus_income_tax = floor($bonus_pretax * 41.861); }
+	elseif($bonus_pretax >= 987000 && $bonus_pretax < 1370000){ $bonus_income_tax = floor($bonus_pretax * 32.672); }
+	elseif($bonus_pretax >= 1370000 && $bonus_pretax < 1589000){ $bonus_income_tax = floor($bonus_pretax * 35.735); }
+	elseif($bonus_pretax >= 1589000 && $bonus_pretax < 2708000){ $bonus_income_tax = floor($bonus_pretax * 38.798); }
+	elseif($bonus_pretax >= 2708000 && $bonus_pretax < 3611000){ $bonus_income_tax = floor($bonus_pretax * 41.861); }
   else{$bonus_income_tax = floor($bonus_pretax * 45.945);}
 
 }elseif( $dependants == 3 ){
@@ -420,10 +420,10 @@ if( $dependants == 0 ){
 	elseif($bonus_pretax >= 885000 && $bonus_pretax < 934000){ $bonus_income_tax = floor($bonus_pretax * 26.546); }
 	elseif($bonus_pretax >= 934000 && $bonus_pretax < 998000){ $bonus_income_tax = floor($bonus_pretax * 28.588); }
 	elseif($bonus_pretax >= 998000 && $bonus_pretax < 1078000){ $bonus_income_tax = floor($bonus_pretax * 30.63); }
-	elseif($bonus_pretax >= 1078000 && $bonus_pretax < 1,443,000){ $bonus_income_tax = floor($bonus_pretax * 32.672); }
-	elseif($bonus_pretax >= 1,443,000 && $bonus_pretax < 1,674,000){ $bonus_income_tax = floor($bonus_pretax * 35.735); }
-	elseif($bonus_pretax >= 1,674,000 && $bonus_pretax < 2,780,000){ $bonus_income_tax = floor($bonus_pretax * 38.798); }
-	elseif($bonus_pretax >= 2,780,000 && $bonus_pretax < 3,706,000){ $bonus_income_tax = floor($bonus_pretax * 41.861); }
+	elseif($bonus_pretax >= 1078000 && $bonus_pretax < 1443000){ $bonus_income_tax = floor($bonus_pretax * 32.672); }
+	elseif($bonus_pretax >= 1443000 && $bonus_pretax < 167000){ $bonus_income_tax = floor($bonus_pretax * 35.735); }
+	elseif($bonus_pretax >= 1674000 && $bonus_pretax < 2780000){ $bonus_income_tax = floor($bonus_pretax * 38.798); }
+	elseif($bonus_pretax >= 2780000 && $bonus_pretax < 3706000){ $bonus_income_tax = floor($bonus_pretax * 41.861); }
   else{$bonus_income_tax = floor($bonus_pretax * 45.945);}
 
 }elseif( $dependants == 6 ){
