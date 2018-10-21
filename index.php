@@ -227,7 +227,7 @@ foreach ($events as $event) {
   $space = $parameter[4];           // お住まいの居住空間の広さ
   $houserent = $parameter[5];       // お住まいの家賃
   $before_salary = $parameter[6];   // 現在の月額給与
-  $before_bonus = $parameter[7];    // 現在の年間賞与
+  $bonus = $parameter[7];    // 現在の年間賞与
 
 
   //入力のバリデーション
@@ -264,27 +264,91 @@ foreach ($events as $event) {
 
 
   // 事前計算
-  $before_yearly_income = $before_salary * 12 + $before_bonus; // 導入前：年収
+
+  // 賞与の社会保険料・税金を計算
+  $bonus_for_cal = (floor($bonus / 1000) * 1000) ;
+
+  if( $age < 40){
+    if( $bonus_for_cal <= 1500000){
+    $bonus_social_insurance = floor($bonus_for_cal * 0.14046) ;
+    }elseif( $bonus_for_cal > 1500000 && $bonus_for_cal <= 5730000){
+    $bonus_social_insurance = floor($bonus_for_cal * 0.04955) + 136365 ;
+    }else{
+    $bonus_social_insurance = 418515;
+    }
+  }else{
+    if( $bonus_for_cal <= 1500000){
+    $bonus_social_insurance = floor($bonus_for_cal * 0.20651) ;
+    }elseif( $bonus_for_cal > 1500000 && $bonus_for_cal <= 5730000){
+    $bonus_social_insurance = floor($bonus_for_cal * 0.0578) + 136365 ;
+    }else{
+    $bonus_social_insurance = 467559;
+    }
+  }
+
+$bonus_pretax = $bonus - $bonus_social_insurance; // 社会保険料控除後の賞与
+
+/*
+if( $dependants == 0 ){
+  if($bonus_pretax < 68000){ $bonus_income_tax = 0; }
+  elseif($bonus_pretax >= 68000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.02042); }
+  elseif($bonus_pretax >= 79000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.04084); }
+  elseif($bonus_pretax >= 252000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.06126); }
+  elseif($bonus_pretax >= 300000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.08168); }
+  elseif($bonus_pretax >= 334000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.10210); }
+  elseif($bonus_pretax >= 363000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+  elseif($bonus_pretax >= 395000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+  elseif($bonus_pretax >= 426000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+  elseif($bonus_pretax >= 550000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+  elseif($bonus_pretax >= 647000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+  elseif($bonus_pretax >= 699000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+  elseif($bonus_pretax >= 730000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+  elseif($bonus_pretax >= 764000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+  elseif($bonus_pretax >= 804000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+  elseif($bonus_pretax >= 857000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+  elseif($bonus_pretax >= 68000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+  elseif($bonus_pretax >= 68000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+  elseif($bonus_pretax >= 68000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+  elseif($bonus_pretax >= 68000 $$ $bonus_pretax < 79000){ $bonus_income_tax = floor($bonus_pretax * 0.12252); }
+
+}elseif( $dependants == 1 ){
+
+}elseif( $dependants == 2 ){
+
+}elseif( $dependants == 3 ){
+
+}elseif( $dependants == 4 ){
+
+}elseif( $dependants == 5 ){
+
+}elseif( $dependants == 6 ){
+
+}else{
+
+}
+*/
+
+  $before_yearly_income = $before_salary * 12 + $bonus; // 導入前：年収
   $payment_reduce = $houserent * 0.8;                          // 導入後：会社支払家賃
   $rest_payment = $houserent * 0.2;                            // 導入後：本人支払家賃
   $after_salary = $before_salary - $payment_reduce;            // 導入後：給与
-  $after_yearly_income = $after_salary * 12 + $before_bonus;   // 導入後：年収
+  $after_yearly_income = $after_salary * 12 + $bonus;   // 導入後：年収
 
 
 // 都道府県による住宅利益の分類 開始---------------------------------------
   if($location == '東京都' or $location == '東京'){
   $housebenefit = 2590;
-}elseif($location == '神奈川県' or $location == '神奈川'){
+  }elseif($location == '神奈川県' or $location == '神奈川'){
   $housebenefit = 2070;
-}elseif($location == '千葉県' or $location == '千葉'){
+  }elseif($location == '千葉県' or $location == '千葉'){
   $housebenefit = 1700;
-}elseif($location == '埼玉県' or $location == '埼玉'){
+  }elseif($location == '埼玉県' or $location == '埼玉'){
   $housebenefit = 1750;
-}elseif($location == '茨城県' or $location == '茨城'){
+  }elseif($location == '茨城県' or $location == '茨城'){
   $housebenefit = 1270;
-}elseif($location == '群馬県' or $location == '群馬'){
+  }elseif($location == '群馬県' or $location == '群馬'){
   $housebenefit = 1170;
-}elseif($location == '栃木県' or $location == '栃木'){
+  }elseif($location == '栃木県' or $location == '栃木'){
   $housebenefit = 1310;
   }else{
     $exception = "申し訳ございません。シミュレーション対象外の地域です。\n対象の地域は、東京都・神奈川県・埼玉県・千葉県・茨城県・群馬県・栃木県となります。";
@@ -1293,7 +1357,7 @@ if($dependants == 0 ){
   $calculation[] = $in_kind_as_house;                       // [7] 現物支給額
 
   $calculation[] = $before_salary;                          // [8] 導入前：月額給与
-  $calculation[] = $before_bonus;                           // [9] 導入前：年間賞与
+  $calculation[] = $bonus;                           // [9] 導入前：年間賞与
   $calculation[] = $before_yearly_income;                   // [10] 導入前：年収
   $calculation[] = $before_health_insurance_expense;        // [11] 導入前：健康保険料
   $calculation[] = $before_pension_premiums;                // [12] 導入前：厚生年金保険料
@@ -1322,17 +1386,20 @@ if($dependants == 0 ){
   $calculation[] = $delta_social_insurance;                 // [31]社会保険料差分
   $calculation[] = $delta_inhabitant_tax;                   // [32]住民税差分
   $calculation[] = $effect_recalculation = $delta_income_tax + $delta_social_insurance + $delta_inhabitant_tax; // [33]可処分所得増加分の検算
+  $calculation[] = $bonus_social_insurance;                   // [34]賞与の社会保険料
+
+
 
 // ユーザーにシミュレーション結果等を返信
-  $message0 = "【シミュレーション結果】\n\nスマートサラリーを導入すると最大で毎月$calculation[25]円多く手元に残るようになります。\n\n内訳\n・1ヶ月後 所得税分Start\n→　$calculation[30]円 UP!\n・4ヶ月後 社会保険分Start\n→　$calculation[31]円 UP!\n・翌年度以降 住民税分Start\n→最大　$calculation[32]円 UP!\n\n※1:住民税分は導入時期によって変動します。\n※2:簡易シミュレーションのため、実際の数値とは多少の誤差が発生します。";
+  $message0 = "【シミュレーション結果】\n\nスマートサラリーを導入すると最大で毎月$calculation[25]円多く手元に残るようになります。\n\n内訳\n・1ヶ月後 所得税分\n→　$calculation[30]円　UP!!\n・4ヶ月後 社会保険料分\n→　$calculation[31]円　UP!!\n・翌年度以降 住民税分\n→最大　$calculation[32]円　UP!!\n\n※1:住民税分は導入時期によって変動します。\n※2:簡易シミュレーションのため、実際の数値とは多少の誤差が発生します。";
 
-  $message1 = "【基本情報】\n\n年齢：$calculation[0]歳\n配偶者：$calculation[1]\n扶養家族：$calculation[2]人\n勤務地の都道府県：$calculation[3]\n\n家賃：$calculation[4]円\n自宅の居住空間の広さ：$calculation[5]畳\n$calculation[4]の住宅利益：1畳あたり$calculation[6]円\n現物支給額換算：$calculation[7]円";
+  $message1 = "【基本情報】\n\n年齢：$calculation[0]歳\n配偶者：$calculation[1]\n扶養家族：$calculation[2]人\n勤務地の都道府県：$calculation[3]\n\n家賃：$calculation[4]円\n自宅の居住空間の広さ：$calculation[5]畳\n$calculation[3]の住宅利益：1畳あたり$calculation[6]円\n現物支給額換算：$calculation[7]円";
 
   $message2 = "【スマートサラリー導入前】\n\n月額給与：$calculation[8]円\n年間賞与：$calculation[9]円\n年収：$calculation[10]円\n\n健康保険料：$calculation[11]円\n厚生年金保険料：$calculation[12]円\n所得税：$calculation[13]円\n住民税：$calculation[14]円\n社保、税金、家賃控除後の可処分所得：$calculation[15]円";
 
   $message3 = "【スマートサラリー導入後】\n\n会社負担家賃（家賃×0.8）：$calculation[16]円\n本人負担家賃（家賃×0.2）：$calculation[17]円\n\n月額給与：$calculation[18]円\n年間賞与：$calculation[9]円\n年収：$calculation[19] 円\n\n健康保険料：$calculation[20]円\n厚生年金保険料：$calculation[21]円\n所得税：$calculation[22]円\n住民税：$calculation[23]円\n社保、税金、家賃控除後の可処分所得：$calculation[24]円\n\nスマートサラリー導入効果：$calculation[25]円\n";
 
-  $message4 = "【開発確認用パラメータ】\n\n年収：$calculation[10]円\n給与所得控除：$calculation[26]円\n所得控除：$calculation[27]円\n住民税年額：$calculation[28]円\n住民税月額：$calculation[29]円\n\n所得税差分：$calculation[30]円\n社会保険料差分：$calculation[31]円\n住民税差分：$calculation[32]円\n可処分所得増加分の検算：$calculation[33]円";
+  $message4 = "【開発確認用パラメータ】\n\n年収：$calculation[10]円\n給与所得控除：$calculation[26]円\n所得控除：$calculation[27]円\n住民税年額：$calculation[28]円\n住民税月額：$calculation[29]円\n\n所得税差分：$calculation[30]円\n社会保険料差分：$calculation[31]円\n住民税差分：$calculation[32]円\n可処分所得増加分の検算：$calculation[33]円\n\n賞与の社会保険料$calculation[34]円";
 
   // メッセージをユーザーに返信
 $bot->replyText($event->getReplyToken(), $message0, $message1, $message2, $message3, $message4);
