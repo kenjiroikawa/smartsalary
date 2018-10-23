@@ -1543,7 +1543,7 @@ $after_income_tax_total = $after_income_tax * 12 ;
   $calculation[] = $bonus_social_insurance;                 // [34]賞与の社会保険料
   $calculation[] = $bonus_pretax;                           // [35]賞与の社会保険料控除後の金額
   $calculation[] = $bonus_income_tax;                       // [36]賞与の源泉徴収金額
-  $calculation[] = $after_dependant;                        // [37]導入後の課税対象金額
+  $calculation[] = $after_income_tax;                        // [37]導入後の課税対象金額
   $calculation[] = $after_pretax_salary;                        // [38]導入後の所得税・源泉徴収金額
 
 // ユーザーにシミュレーション結果等を返信
