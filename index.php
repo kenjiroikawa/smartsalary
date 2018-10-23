@@ -483,11 +483,7 @@ if( $dependants == 0 ){
   $after_yearly_income = $after_salary * 12 + $bonus;   // 導入後：年収
 
   if( $before_salary <= $houserent ){
-    $error = "給与または家賃の項目に適切でない数値が入力されています。\n案内に沿って、8項目を入力してください。";
-    $bot->replyText($event->getReplyToken(), $error);
-    exit;
-  }elseif( $after_salary <= 0 ){
-    $error = "給与または家賃の項目に適切でない数値が入力されています。\n案内に沿って、8項目を入力してください。";
+    $error = "月額給与よりも高い家賃が入力されています。\n案内に沿って、8項目を入力してください。";
     $bot->replyText($event->getReplyToken(), $error);
     exit;
   }
