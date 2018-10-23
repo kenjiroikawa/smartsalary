@@ -1556,7 +1556,7 @@ $after_income_tax_total = $after_income_tax * 12 ;
   $message4 = "【開発確認用パラメータ】\n\n年収：$calculation[10]円\n給与所得控除：$calculation[26]円\n所得控除：$calculation[27]円\n住民税年額：$calculation[28]円\n住民税月額：$calculation[29]円\n\n所得税差分：$calculation[30]円\n社会保険料差分：$calculation[31]円\n住民税差分：$calculation[32]円\n可処分所得増加分の検算：$calculation[33]円\n\n賞与の社会保険料$calculation[34]円\n賞与の社会保険料控除後の金額$calculation[35]円\n 賞与の源泉徴収金額$calculation[36]円";
 
   // メッセージをユーザーに返信
-  if( preg_match('/詳細/',$parameters)){
+  if( strpos($parameters,'詳細') !== false ){
   $bot->replyText($event->getReplyToken(), $message0, $message1, $message2, $message3, $message4);
   }else{
   $bot->replyText($event->getReplyToken(), $message0);
