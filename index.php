@@ -1557,9 +1557,11 @@ $after_income_tax_total = $after_income_tax * 12 ;
 
   // メッセージをユーザーに返信
   if( strpos($parameters,'詳細') !== false ){
-  $bot->replyText($event->getReplyToken(), $message0, $message1, $message2, $message3, $message4);
+    $bot->replyText($event->getReplyToken(), $message1, $message2, $message3, $message0);
+  }elseif( strpos($parameters,'確認') !== false ){
+    $bot->replyText($event->getReplyToken(), $message1, $message2, $message3, $message4, $message0);
   }else{
-  $bot->replyText($event->getReplyToken(), $message0);
+    $bot->replyText($event->getReplyToken(), $message0);
   }
 
 
