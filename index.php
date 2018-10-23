@@ -1545,7 +1545,7 @@ $after_income_tax_total = $after_income_tax * 12 ;
 
 
 // ユーザーにシミュレーション結果等を返信
-  $message0 = "【シミュレーション結果】\n\nスマートサラリーを導入すると最大で毎月$calculation[25]円多く手元に残るようになります。\n\n内訳\n・1ヶ月後 所得税分\n→　$calculation[30]円　UP!!\n・4ヶ月後 社会保険料分\n→　$calculation[31]円　UP!!\n・翌年度以降 住民税分\n→最大　$calculation[32]円　UP!!\n\n※1:住民税分は導入時期によって変動します。";
+  $message0 = "【シミュレーション結果】\n\nスマートサラリーを導入すると最大で毎月$calculation[25]円多く手元に残るようになります。\n\n内訳\n・1ヶ月後 所得税分\n→　$calculation[30]円　UP!!\n・4ヶ月後 社会保険料分\n→　$calculation[31]円　UP!!\n・翌年度以降 住民税分\n→最大　$calculation[32]円　UP!!\n\n※住民税分は導入時期によって変動します。";
 
   $message1 = "【基本情報】\n\n年齢：$calculation[0]歳\n配偶者：$calculation[1]\n扶養家族：$calculation[2]人\n勤務地の都道府県：$calculation[3]\n\n家賃：$calculation[4]円\n自宅の居住空間の広さ：$calculation[5]畳\n$calculation[3]の住宅利益：1畳あたり$calculation[6]円\n現物支給額換算：$calculation[7]円";
 
