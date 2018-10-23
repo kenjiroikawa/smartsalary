@@ -932,7 +932,7 @@ $before_dependant = [123190+$delta_hightax,115760+$delta_hightax,108320+$delta_h
 }elseif($before_pretax_salary == 1720000){$before_dependant = [375890,368460,361020,354470,348010,341550,335070,328610];
 }elseif($before_pretax_salary > 1720000 && $before_pretax_salary < 3550000){
 $delta_hightax = floor(($before_pretax_salary - 1720000) * 0.4084);
-$before_dependant = [123190+$delta_hightax,115760+$delta_hightax,108320+$delta_hightax,101770+$delta_hightax,95310+$delta_hightax,88850+$delta_hightax,82370+$delta_hightax,75910+$delta_hightax];
+$before_dependant = [375890+$delta_hightax,368460+$delta_hightax,361020+$delta_hightax,354470+$delta_hightax,348010+$delta_hightax,341550+$delta_hightax,335070+$delta_hightax,328610+$delta_hightax];
 }elseif($before_pretax_salary == 3550000){$before_dependant = [1123270,1115840,1108400,1101850,1095390,1088930,1082450,1075990];
 }elseif($before_pretax_salary > 3550000){
 $delta_hightax = floor(($before_pretax_salary - 3550000) * 0.45945);
@@ -1419,7 +1419,8 @@ $after_dependant = [123190+$delta_hightax,115760+$delta_hightax,108320+$delta_hi
 }elseif($after_pretax_salary == 1720000){$after_dependant = [375890,368460,361020,354470,348010,341550,335070,328610];
 }elseif($after_pretax_salary > 1720000 && $after_pretax_salary < 3550000){
 $delta_hightax = floor(($after_pretax_salary - 1720000) * 0.4084);
-$after_dependant = [123190+$delta_hightax,115760+$delta_hightax,108320+$delta_hightax,101770+$delta_hightax,95310+$delta_hightax,88850+$delta_hightax,82370+$delta_hightax,75910+$delta_hightax];
+$after_dependant =
+[375890+$delta_hightax,368460+$delta_hightax,361020+$delta_hightax,354470+$delta_hightax,348010+$delta_hightax,341550+$delta_hightax,335070+$delta_hightax,328610+$delta_hightax];
 }elseif($after_pretax_salary == 3550000){$after_dependant = [1123270,1115840,1108400,1101850,1095390,1088930,1082450,1075990];
 }elseif($after_pretax_salary > 3550000){
 $delta_hightax = floor(($after_pretax_salary - 3550000) * 0.45945);
