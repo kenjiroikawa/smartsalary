@@ -1563,8 +1563,6 @@ $after_income_tax_total = $after_income_tax * 12 ;
   }else{
     $bot->replyText($event->getReplyToken(), $message0);
   }
-
-
 }
 
 ?>
