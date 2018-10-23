@@ -244,12 +244,15 @@ foreach ($events as $event) {
     $bot->replyText($event->getReplyToken(), $error);
     exit;
   }elseif(!preg_match("/^[0-9]+$/",$space) == 1 ){
-    $error = "住宅広さの入力に誤りがあります。お住まいの住宅の広さ（畳）を半角数値で入力してください。\n\n（例）2LDK リビング10畳、洋室6畳、和室6畳の場合\n→「22」と入力してください。";
+    $error = "住宅広さの入力に誤りがあります。お住まいの住宅の広さ（畳）を半角数値で入力してください。\n\n（例）2LDK リビング8畳、洋室6畳、和室6畳の場合\n→「20」と入力してください。";
     $bot->replyText($event->getReplyToken(), $error);
     exit;
-  }else{
-
+  }elseif( $before_salary <= $houserent ){
+    $error = "月額給与以上の家賃が入力されています。\n案内に沿って、8項目を入力してください。";
+    $bot->replyText($event->getReplyToken(), $error);
+    exit;
   }
+
 
   // 基本情報をベースに各種控除を算出
   $basic_deduction = 330000;                                   // 基礎控除（住民税）
@@ -481,12 +484,6 @@ if( $dependants == 0 ){
   $rest_payment = $houserent * 0.2;                            // 導入後：本人支払家賃
   $after_salary = $before_salary - $payment_reduce;            // 導入後：給与
   $after_yearly_income = $after_salary * 12 + $bonus;   // 導入後：年収
-
-  if( $before_salary <= $houserent ){
-    $error = "月額給与よりも高い家賃が入力されています。\n案内に沿って、8項目を入力してください。";
-    $bot->replyText($event->getReplyToken(), $error);
-    exit;
-  }
 
 // 都道府県による住宅利益の分類 開始---------------------------------------
   if($location == '東京都' or $location == '東京'){
