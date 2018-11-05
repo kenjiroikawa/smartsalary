@@ -644,7 +644,7 @@ if( $dependants == 0 ){
   }
 
 // 導入前：雇用保険料の計算
-  $before_employment_insurance = $before_salary * 0.003;
+  $before_employment_insurance = floor($before_salary * 0.003);
 
 // 導入前：厚生年金保険料の計算
   $before_pension_premiums = $before_social_insurance[2];
@@ -1137,7 +1137,7 @@ $before_disposable_income = $before_salary - $before_health_insurance_expense - 
   $after_pension_premiums = $after_social_insurance[2];
 
 // 導入後：雇用保険料の計算
-  $after_employment_insurance = $after_salary_in_kind * 0.003;
+  $after_employment_insurance = floor($after_salary_in_kind * 0.003);
 
 // 導入後：年間の社会保険料の合計
   $after_social_insurance_total = ($after_health_insurance_expense + $after_pension_premiums + $after_employment_insurance ) * 12;
