@@ -981,7 +981,6 @@ if($dependants == 0 ){
   $before_income_tax =  $before_dependant[7];
 }
 
-$before_income_tax_total = $before_income_tax * 12 ;
 //導入前：扶養家族に応じた源泉徴収額の計算 終了----------------------
 
 
@@ -1004,6 +1003,24 @@ $before_income_tax_total = $before_income_tax * 12 ;
     $before_salary_deduction = 2200000;
   }
 
+// 導入前：年末調整時の所得税の計算
+$before_taxable_income = $before_yearly_income - $before_salary_deduction; // 導入前：課税対象額の計算
+
+if($before_taxable_income <= 1950000 ){
+  $before_income_tax_total = ($before_taxable_income - 0 ) * 0.05;
+}elseif($before_taxable_income > 1950000 && $before_taxable_income <= 3300000){
+  $before_income_tax_total = ($before_taxable_income - 97500 ) * 0.1;
+}elseif($before_taxable_income > 3300000 && $before_taxable_income <= 6950000){
+  $before_income_tax_total = ($before_taxable_income - 427500 ) * 0.2;
+}elseif($before_taxable_income > 6950000 && $before_taxable_income <= 9000000){
+  $before_income_tax_total = ($before_taxable_income - 636000 ) * 0.23;
+}elseif($before_taxable_income > 9000000 && $before_taxable_income <= 18000000){
+  $before_income_tax_total = ($before_taxable_income - 1536000 ) * 0.33;
+}elseif($before_taxable_income > 18000000 && $before_taxable_income <= 40000000){
+  $before_income_tax_total = ($before_taxable_income - 2796000 ) * 0.4;
+}elseif($before_taxable_income > 40000000){
+  $before_income_tax_total = ($before_taxable_income - 4796000 ) * 0.45;
+}
 
 
   //所得控除
@@ -1453,8 +1470,6 @@ $after_dependant = [1123270+$delta_hightax,1115840+$delta_hightax,1108400+$delta
 
 // 導入後：社保控除後の金額に応じた源泉徴収額の計算 終了----------------------
 
-
-
 // 導入後：扶養家族に応じた源泉徴収額の計算 開始----------------------
 if($dependants == 0 ){
   $after_income_tax =  $after_dependant[0];
@@ -1474,11 +1489,9 @@ if($dependants == 0 ){
   $after_income_tax =  $after_dependant[7];
 }
 
-$after_income_tax_total = $after_income_tax * 12 ;
 // 導入後：扶養家族に応じた源泉徴収額の計算 終了----------------------
 
-
-// 導入後：住民税の計算 開始-----------------------------------------
+// 導入後：年末調整時の所得税の計算
   // 給与所得控除の計算
   if($after_yearly_income < 1625000){
     $after_salary_deduction = 650000;
@@ -1490,16 +1503,34 @@ $after_income_tax_total = $after_income_tax * 12 ;
     $after_salary_deduction = $after_yearly_income * 0.2 + 540000;
   }elseif($after_yearly_income > 6600000 && $after_yearly_income <= 10000000){
     $after_salary_deduction = $after_yearly_income * 0.1 + 1200000;
-  }elseif($after_yearly_income > 1625000 && $after_yearly_income <= 1800000){
-    $after_salary_deduction = $after_yearly_income * 0.4;
   }else{
     $after_salary_deduction = 2200000;
   }
 
-  //所得控除
-  $after_income_deduction = $basic_deduction + $partner_deduction + $dependant_deduction + $after_social_insurance_total + $after_income_tax_total + $bonus_social_insurance + $bonus_income_tax;;
+  $after_taxable_income = $after_yearly_income - $after_salary_deduction; // 導入後：課税対象額の計算
 
-  // 住民税計算用の課税対象金額の計算
+  if($after_taxable_income <= 1950000 ){
+    $after_income_tax_total = ($after_taxable_income - 0 ) * 0.05;
+  }elseif($after_taxable_income > 1950000 && $after_taxable_income <= 3300000){
+    $after_income_tax_total = ($after_taxable_income - 97500 ) * 0.1;
+  }elseif($after_taxable_income > 3300000 && $after_taxable_income <= 6950000){
+    $after_income_tax_total = ($after_taxable_income - 427500 ) * 0.2;
+  }elseif($after_taxable_income > 6950000 && $after_taxable_income <= 9000000){
+    $after_income_tax_total = ($after_taxable_income - 636000 ) * 0.23;
+  }elseif($after_taxable_income > 9000000 && $after_taxable_income <= 18000000){
+    $after_income_tax_total = ($after_taxable_income - 1536000 ) * 0.33;
+  }elseif($after_taxable_income > 18000000 && $after_taxable_income <= 40000000){
+    $after_income_tax_total = ($after_taxable_income - 2796000 ) * 0.4;
+  }elseif($after_taxable_income > 40000000){
+    $after_income_tax_total = ($after_taxable_income - 4796000 ) * 0.45;
+  }
+
+  // 導入後：住民税の計算 開始-----------------------------------------
+
+  // 導入後：所得控除
+  $after_income_deduction = $basic_deduction + $partner_deduction + $dependant_deduction + $after_social_insurance_total + $after_income_tax_total + $bonus_social_insurance + $bonus_income_tax;
+
+  // 導入後：住民税計算用の課税対象金額の計算
   $after_inhabitant_tax_yearly = $after_yearly_income - $after_salary_deduction - $after_income_deduction ;
 
   // 月額住民税の計算
@@ -1572,8 +1603,11 @@ $after_income_tax_total = $after_income_tax * 12 ;
   $calculation[] = $after_income_tax;                       // [38]導入後の課税対象金額
   $calculation[] = $after_pretax_salary;                    // [39]導入後の所得税・源泉徴収対象金額
 
-  $calculation[] = $before_employment_insurance;                    // [40]導入前の雇用保険料
-  $calculation[] = $after_employment_insurance;                    // [41]導入後の雇用保険料
+  $calculation[] = $before_employment_insurance;            // [40]導入前の雇用保険料
+  $calculation[] = $after_employment_insurance;             // [41]導入後の雇用保険料
+
+  $calculation[] = $before_income_tax_total;                // [42]導入前の所得税年額
+  $calculation[] = $after_income_tax_total;                 // [43]導入後の所得税年額
 
 // ユーザーにシミュレーション結果等を返信
   $message0 = "【シミュレーション結果】\n\nスマートサラリーを導入すると最大で毎月$calculation[25]円多く手元に残るようになります。\n\n内訳\n・1ヶ月後 所得税分\n→　$calculation[30]円　UP!!\n・4ヶ月後 社会保険料分\n→　$calculation[31]円　UP!!\n・翌年度以降 住民税分\n→最大　$calculation[32]円　UP!!\n\n※住民税分は導入時期によって変動します。";
@@ -1584,7 +1618,7 @@ $after_income_tax_total = $after_income_tax * 12 ;
 
   $message3 = "【スマートサラリー導入後】\n\n会社負担家賃（家賃×0.8）：$calculation[16]円\n本人負担家賃（家賃×0.2）：$calculation[17]円\n\n月額給与：$calculation[18]円\n年間賞与：$calculation[9]円\n年収：$calculation[19] 円\n\n健康保険料：$calculation[20]円\n厚生年金保険料：$calculation[21]円\n雇用保険料：$calculation[41]円\n所得税：$calculation[22]円\n住民税：$calculation[23]円\n社保、税金、家賃控除後の可処分所得：$calculation[24]円\n\nスマートサラリー導入効果：$calculation[25]円\n";
 
-  $message4 = "【開発確認用パラメータ】\n\n年収：$calculation[10]円\n給与所得控除：$calculation[26]円\n所得控除：$calculation[27]円\n住民税年額：$calculation[28]円\n住民税月額：$calculation[29]円\n\n所得税差分：$calculation[30]円\n社会保険料差分：$calculation[31]円\n住民税差分：$calculation[32]円\n可処分所得増加分の検算：$calculation[33]円\n\n賞与の社会保険料$calculation[34]円\n賞与の社会保険料控除後の金額$calculation[35]円\n 賞与の源泉徴収金額$calculation[36]円\n\n導入前の所得税・源泉徴収対象金額$calculation[37]円\n導入後の課税対象金額$calculation[38]円\n導入後の所得税の源泉徴収金額：$calculation[39]円";
+  $message4 = "【開発確認用パラメータ】\n\n年収：$calculation[10]円\n給与所得控除：$calculation[26]円\n所得控除：$calculation[27]円\n住民税年額：$calculation[28]円\n住民税月額：$calculation[29]円\n\n所得税差分：$calculation[30]円\n社会保険料差分：$calculation[31]円\n住民税差分：$calculation[32]円\n可処分所得増加分の検算：$calculation[33]円\n\n賞与の社会保険料$calculation[34]円\n賞与の社会保険料控除後の金額$calculation[35]円\n 賞与の源泉徴収金額$calculation[36]円\n\n導入前の所得税・源泉徴収対象金額$calculation[37]円\n導入後の課税対象金額$calculation[38]円\n導入後の所得税の源泉徴収金額：$calculation[39]円\n\n導入前の所得税年額$calculation[42]円\n導入後の所得税年額$calculation[43]円";
 
   // メッセージをユーザーに返信
   if( strpos($parameters,'詳細') !== false ){
