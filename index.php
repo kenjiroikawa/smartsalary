@@ -238,7 +238,7 @@ foreach ($events as $event) {
 
   if( strpos($parameter[7],'詳細') !== false ){ // 現在の年間賞与、詳細・確認ステータスを除外
     $bonus = str_replace('詳細', '', $parameter[7]);
-  }elseif( strpos($parameter[7],'確認' !== false ){
+  }elseif( strpos($parameter[7],'確認') !== false ){
     $bonus = str_replace('確認', '', $parameter[7]);
   }else{
     $bonus = $parameter[7];
