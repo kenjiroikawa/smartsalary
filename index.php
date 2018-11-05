@@ -273,15 +273,20 @@ foreach ($events as $event) {
 
 
   // 基本情報をベースに各種控除を算出
-  $basic_deduction = 330000;                                   // 基礎控除（住民税）
+  $basic_deduction1 = 380000;                                   // 基礎控除（所得税）
+  $basic_deduction2 = 330000;                                   // 基礎控除（住民税）
 
-  if($partner == 'あり'){                                      //配偶者控除（住民税）
-    $partner_deduction = 330000;
+  if($partner == 'あり'){
+    $partner_deduction1 = 380000;                              //配偶者控除（所得税）
+    $partner_deduction2 = 330000;                              //配偶者控除（住民税）
+
   }else{
-    $partner_deduction = 0;
+    $partner_deduction1 = 0;                                   //配偶者控除（所得税）
+    $partner_deduction2 = 0;                                   //配偶者控除（住民税）
   }
 
-  $dependant_deduction = $dependants * 330000;                 //扶養控除（住民税）
+  $dependant_deduction1 = $dependants * 380000;                 //扶養控除（所得税）
+  $dependant_deduction2 = $dependants * 330000;                 //扶養控除（住民税）
 
 
   // 事前計算
@@ -1004,30 +1009,33 @@ if($dependants == 0 ){
   }
 
 // 導入前：年末調整時の所得税の計算
-$before_taxable_income = $before_yearly_income - $before_salary_deduction; // 導入前：課税対象額の計算
 
-if($before_taxable_income <= 1950000 ){
-  $before_income_tax_total = ($before_taxable_income - 0 ) * 0.05;
-}elseif($before_taxable_income > 1950000 && $before_taxable_income <= 3300000){
-  $before_income_tax_total = ($before_taxable_income - 97500 ) * 0.1;
-}elseif($before_taxable_income > 3300000 && $before_taxable_income <= 6950000){
-  $before_income_tax_total = ($before_taxable_income - 427500 ) * 0.2;
-}elseif($before_taxable_income > 6950000 && $before_taxable_income <= 9000000){
-  $before_income_tax_total = ($before_taxable_income - 636000 ) * 0.23;
-}elseif($before_taxable_income > 9000000 && $before_taxable_income <= 18000000){
-  $before_income_tax_total = ($before_taxable_income - 1536000 ) * 0.33;
-}elseif($before_taxable_income > 18000000 && $before_taxable_income <= 40000000){
-  $before_income_tax_total = ($before_taxable_income - 2796000 ) * 0.4;
-}elseif($before_taxable_income > 40000000){
-  $before_income_tax_total = ($before_taxable_income - 4796000 ) * 0.45;
-}
+  //導入前：所得控除
+  $before_income_deduction = $basic_deduction1 + $partner_deduction1 + $dependant_deduction1 + $before_social_insurance_total + $bonus_social_insurance;  // 所得税用
 
+  $before_income_deduction2 = $basic_deduction2 + $partner_deduction2 + $dependant_deduction2 + $before_social_insurance_total + $bonus_social_insurance;  // 住民税用
 
-  //所得控除
-  $before_income_deduction = $basic_deduction + $partner_deduction + $dependant_deduction + $before_social_insurance_total + $before_income_tax_total + $bonus_social_insurance + $bonus_income_tax;
+// 導入前：課税対象額の計算
+  $before_taxable_income = $before_yearly_income - $before_salary_deduction - $before_income_deduction;
+
+  if($before_taxable_income <= 1950000 ){
+    $before_income_tax_total = ($before_taxable_income - 0 ) * 0.05;
+  }elseif($before_taxable_income > 1950000 && $before_taxable_income <= 3300000){
+    $before_income_tax_total = ($before_taxable_income - 97500 ) * 0.1;
+  }elseif($before_taxable_income > 3300000 && $before_taxable_income <= 6950000){
+    $before_income_tax_total = ($before_taxable_income - 427500 ) * 0.2;
+  }elseif($before_taxable_income > 6950000 && $before_taxable_income <= 9000000){
+    $before_income_tax_total = ($before_taxable_income - 636000 ) * 0.23;
+  }elseif($before_taxable_income > 9000000 && $before_taxable_income <= 18000000){
+    $before_income_tax_total = ($before_taxable_income - 1536000 ) * 0.33;
+  }elseif($before_taxable_income > 18000000 && $before_taxable_income <= 40000000){
+    $before_income_tax_total = ($before_taxable_income - 2796000 ) * 0.4;
+  }elseif($before_taxable_income > 40000000){
+    $before_income_tax_total = ($before_taxable_income - 4796000 ) * 0.45;
+  }
 
   // 住民税計算用の課税対象金額の計算
-  $before_inhabitant_tax_yearly = $before_yearly_income - $before_salary_deduction - $before_income_deduction ;
+  $before_inhabitant_tax_yearly = $before_yearly_income - $before_salary_deduction - $before_income_deduction2;
 
   // 月額住民税の計算
   $before_inhabitant_tax = floor($before_inhabitant_tax_yearly / 120);
@@ -1507,31 +1515,36 @@ if($dependants == 0 ){
     $after_salary_deduction = 2200000;
   }
 
-  $after_taxable_income = $after_yearly_income - $after_salary_deduction; // 導入後：課税対象額の計算
-
-  if($after_taxable_income <= 1950000 ){
-    $after_income_tax_total = ($after_taxable_income - 0 ) * 0.05;
-  }elseif($after_taxable_income > 1950000 && $after_taxable_income <= 3300000){
-    $after_income_tax_total = ($after_taxable_income - 97500 ) * 0.1;
-  }elseif($after_taxable_income > 3300000 && $after_taxable_income <= 6950000){
-    $after_income_tax_total = ($after_taxable_income - 427500 ) * 0.2;
-  }elseif($after_taxable_income > 6950000 && $after_taxable_income <= 9000000){
-    $after_income_tax_total = ($after_taxable_income - 636000 ) * 0.23;
-  }elseif($after_taxable_income > 9000000 && $after_taxable_income <= 18000000){
-    $after_income_tax_total = ($after_taxable_income - 1536000 ) * 0.33;
-  }elseif($after_taxable_income > 18000000 && $after_taxable_income <= 40000000){
-    $after_income_tax_total = ($after_taxable_income - 2796000 ) * 0.4;
-  }elseif($after_taxable_income > 40000000){
-    $after_income_tax_total = ($after_taxable_income - 4796000 ) * 0.45;
-  }
 
   // 導入後：住民税の計算 開始-----------------------------------------
 
   // 導入後：所得控除
-  $after_income_deduction = $basic_deduction + $partner_deduction + $dependant_deduction + $after_social_insurance_total + $after_income_tax_total + $bonus_social_insurance + $bonus_income_tax;
+  $after_income_deduction = $basic_deduction1 + $partner_deduction1 + $dependant_deduction1 + $after_social_insurance_total + $bonus_social_insurance;  // 所得税用
+
+  $after_income_deduction2 = $basic_deduction2 + $partner_deduction2 + $dependant_deduction2 + $after_social_insurance_total + $bonus_social_insurance;  // 住民税用
+
+  // 導入後：課税対象額の計算
+    $after_taxable_income = $after_yearly_income - $after_salary_deduction - $after_income_deduction;
+
+    if($after_taxable_income <= 1950000 ){
+      $after_income_tax_total = ($after_taxable_income - 0 ) * 0.05;
+    }elseif($after_taxable_income > 1950000 && $after_taxable_income <= 3300000){
+      $after_income_tax_total = ($after_taxable_income - 97500 ) * 0.1;
+    }elseif($after_taxable_income > 3300000 && $after_taxable_income <= 6950000){
+      $after_income_tax_total = ($after_taxable_income - 427500 ) * 0.2;
+    }elseif($after_taxable_income > 6950000 && $after_taxable_income <= 9000000){
+      $after_income_tax_total = ($after_taxable_income - 636000 ) * 0.23;
+    }elseif($after_taxable_income > 9000000 && $after_taxable_income <= 18000000){
+      $after_income_tax_total = ($after_taxable_income - 1536000 ) * 0.33;
+    }elseif($after_taxable_income > 18000000 && $after_taxable_income <= 40000000){
+      $after_income_tax_total = ($after_taxable_income - 2796000 ) * 0.4;
+    }elseif($after_taxable_income > 40000000){
+      $after_income_tax_total = ($after_taxable_income - 4796000 ) * 0.45;
+    }
+
 
   // 導入後：住民税計算用の課税対象金額の計算
-  $after_inhabitant_tax_yearly = $after_yearly_income - $after_salary_deduction - $after_income_deduction ;
+  $after_inhabitant_tax_yearly = $after_yearly_income - $after_salary_deduction - $after_income_deduction2 ;
 
   // 月額住民税の計算
   $after_inhabitant_tax = floor($after_inhabitant_tax_yearly / 120);
@@ -1589,7 +1602,7 @@ if($dependants == 0 ){
 
   $calculation[] = $before_salary_deduction;                // [26] 給与所得控除
   $calculation[] = $before_income_deduction;                // [27] 所得控除
-  $calculation[] = $before_inhabitant_tax_yearly / 10;      // [28] 住民税年額
+  $calculation[] = floor($before_inhabitant_tax_yearly / 10); // [28] 住民税年額
   $calculation[] = $before_inhabitant_tax;                  // [29] 住民税月額
 
   $calculation[] = $delta_income_tax;                       // [30]所得税差分
@@ -1608,13 +1621,11 @@ if($dependants == 0 ){
   $calculation[] = $before_income_tax_total;                // [41]導入前の所得税年額
   $calculation[] = $after_income_tax_total;                 // [42]導入後の所得税年額
 
-// $calculation[] = $before_yearly_income;                     // [10]導入前の年間収入
-$calculation[] = $before_salary_deduction;                  // [43]導入前の給与所得控除
-$calculation[] = $before_taxable_income;                    // [44]導入前の課税対象額
+  $calculation[] = $before_salary_deduction;                 // [43]導入前の給与所得控除
+  $calculation[] = $before_taxable_income;                   // [44]導入前の課税対象額
 
-// $calculation[] = $after_yearly_income;                      // [19]導入後の年間収入
-$calculation[] = $after_salary_deduction;                 // [45]導入後の給与所得控除
-$calculation[] = $after_taxable_income;                   // [46]導入後の課税対象額
+  $calculation[] = $after_salary_deduction;                 // [45]導入後の給与所得控除
+  $calculation[] = $after_taxable_income;                   // [46]導入後の課税対象額
 
 // ユーザーにシミュレーション結果等を返信
   $message0 = "【シミュレーション結果】\n\nスマートサラリーを導入すると最大で毎月$calculation[25]円多く手元に残るようになります。\n\n内訳\n・1ヶ月後 所得税分\n→　$calculation[30]円　UP!!\n・4ヶ月後 社会保険料分\n→　$calculation[31]円　UP!!\n・翌年度以降 住民税分\n→最大　$calculation[32]円　UP!!\n\n※住民税分は導入時期によって変動します。";
