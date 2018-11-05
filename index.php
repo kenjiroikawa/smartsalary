@@ -1019,18 +1019,25 @@ if($dependants == 0 ){
   $before_taxable_income = $before_yearly_income - $before_salary_deduction - $before_income_deduction;
 
   if($before_taxable_income <= 1950000 ){
+    $before_tax_rate = 5;
     $before_income_tax_total = ($before_taxable_income - 0 ) * 0.05;
   }elseif($before_taxable_income > 1950000 && $before_taxable_income <= 3300000){
+    $before_tax_rate = 10;
     $before_income_tax_total = ($before_taxable_income - 97500 ) * 0.1;
   }elseif($before_taxable_income > 3300000 && $before_taxable_income <= 6950000){
+    $before_tax_rate = 20;
     $before_income_tax_total = ($before_taxable_income - 427500 ) * 0.2;
   }elseif($before_taxable_income > 6950000 && $before_taxable_income <= 9000000){
+    $before_tax_rate = 23;
     $before_income_tax_total = ($before_taxable_income - 636000 ) * 0.23;
   }elseif($before_taxable_income > 9000000 && $before_taxable_income <= 18000000){
+    $before_tax_rate = 33;
     $before_income_tax_total = ($before_taxable_income - 1536000 ) * 0.33;
   }elseif($before_taxable_income > 18000000 && $before_taxable_income <= 40000000){
+    $before_tax_rate = 40;
     $before_income_tax_total = ($before_taxable_income - 2796000 ) * 0.4;
   }elseif($before_taxable_income > 40000000){
+    $before_tax_rate = 45;
     $before_income_tax_total = ($before_taxable_income - 4796000 ) * 0.45;
   }
 
@@ -1527,18 +1534,25 @@ if($dependants == 0 ){
     $after_taxable_income = $after_yearly_income - $after_salary_deduction - $after_income_deduction;
 
     if($after_taxable_income <= 1950000 ){
+      $after_tax_rate = 5;
       $after_income_tax_total = ($after_taxable_income - 0 ) * 0.05;
     }elseif($after_taxable_income > 1950000 && $after_taxable_income <= 3300000){
+      $after_tax_rate = 10;
       $after_income_tax_total = ($after_taxable_income - 97500 ) * 0.1;
     }elseif($after_taxable_income > 3300000 && $after_taxable_income <= 6950000){
+      $after_tax_rate = 20;
       $after_income_tax_total = ($after_taxable_income - 427500 ) * 0.2;
     }elseif($after_taxable_income > 6950000 && $after_taxable_income <= 9000000){
+      $after_tax_rate = 23;
       $after_income_tax_total = ($after_taxable_income - 636000 ) * 0.23;
     }elseif($after_taxable_income > 9000000 && $after_taxable_income <= 18000000){
+      $after_tax_rate = 33;
       $after_income_tax_total = ($after_taxable_income - 1536000 ) * 0.33;
     }elseif($after_taxable_income > 18000000 && $after_taxable_income <= 40000000){
+      $after_tax_rate = 40;
       $after_income_tax_total = ($after_taxable_income - 2796000 ) * 0.4;
     }elseif($after_taxable_income > 40000000){
+      $after_tax_rate = 45;
       $after_income_tax_total = ($after_taxable_income - 4796000 ) * 0.45;
     }
 
@@ -1627,6 +1641,10 @@ if($dependants == 0 ){
   $calculation[] = $after_salary_deduction;                 // [45]導入後の給与所得控除
   $calculation[] = $after_taxable_income;                   // [46]導入後の課税対象額
 
+  $calculation[] = $before_tax_rate;                   // [47]導入前の所得税率
+  $calculation[] = $after_tax_rate;                   // [48]導入後の所得税率
+
+
 // ユーザーにシミュレーション結果等を返信
   $message0 = "【シミュレーション結果】\n\nスマートサラリーを導入すると最大で毎月$calculation[25]円多く手元に残るようになります。\n\n内訳\n・1ヶ月後 所得税分\n→　$calculation[30]円　UP!!\n・4ヶ月後 社会保険料分\n→　$calculation[31]円　UP!!\n・翌年度以降 住民税分\n→最大　$calculation[32]円　UP!!\n\n※住民税分は導入時期によって変動します。";
 
@@ -1636,7 +1654,7 @@ if($dependants == 0 ){
 
   $message3 = "【スマートサラリー導入後】\n\n会社負担家賃（家賃×0.8）：$calculation[16]円\n本人負担家賃（家賃×0.2）：$calculation[17]円\n\n月額給与：$calculation[18]円\n年間賞与：$calculation[9]円\n年収：$calculation[19] 円\n\n健康保険料：$calculation[20]円\n厚生年金保険料：$calculation[21]円\n雇用保険料：$calculation[40]円\n所得税：$calculation[22]円\n住民税：$calculation[23]円\n社保、税金、家賃控除後の可処分所得：$calculation[24]円\n\nスマートサラリー導入効果：$calculation[25]円\n";
 
-  $message4 = "【開発確認用パラメータ】\n\n年収：$calculation[10]円\n給与所得控除：$calculation[26]円\n所得控除：$calculation[27]円\n住民税年額：$calculation[28]円\n住民税月額：$calculation[29]円\n\n所得税差分：$calculation[30]円\n社会保険料差分：$calculation[31]円\n住民税差分：$calculation[32]円\n可処分所得増加分の検算：$calculation[33]円\n\n【賞与】\n社会保険料：$calculation[34]円\n社会保険料控除後の金額：$calculation[35]円\n源泉徴収金額：$calculation[36]円\n\n【導入前】\n所得税・源泉徴収対象金額：$calculation[37]円\n所得税の源泉徴収金額：$calculation[13]円\n年間収入：$calculation[10]円\n給与所得控除：$calculation[43]円\n課税対象額：$calculation[44]円\n所得税年額：$calculation[41]円\n\n【導入後】\n課税対象金額：$calculation[38]円\n所得税の源泉徴収金額：$calculation[22]円\n年間収入：$calculation[19]円\n給与所得控除：$calculation[45]円\n課税対象額：$calculation[46]円\n所得税年額：$calculation[42]円";
+  $message4 = "【開発確認用パラメータ】\n\n年収：$calculation[10]円\n給与所得控除：$calculation[26]円\n所得控除：$calculation[27]円\n住民税年額：$calculation[28]円\n住民税月額：$calculation[29]円\n\n所得税差分：$calculation[30]円\n社会保険料差分：$calculation[31]円\n住民税差分：$calculation[32]円\n可処分所得増加分の検算：$calculation[33]円\n\n【賞与】\n社会保険料：$calculation[34]円\n社会保険料控除後の金額：$calculation[35]円\n源泉徴収金額：$calculation[36]円\n\n【導入前】\n所得税・源泉徴収対象金額：$calculation[37]円\n所得税の源泉徴収金額：$calculation[13]円\n年間収入：$calculation[10]円\n給与所得控除：$calculation[43]円\n課税対象額：$calculation[44]円\n所得税率：$calculation[47]\n所得税年額：$calculation[41]円\n\n【導入後】\n課税対象金額：$calculation[38]円\n所得税の源泉徴収金額：$calculation[22]円\n年間収入：$calculation[19]円\n給与所得控除：$calculation[45]円\n課税対象額：$calculation[46]円\n所得税率：$calculation[48]\n所得税年額：$calculation[42]円";
 
   // メッセージをユーザーに返信
   if( strpos($parameters,'詳細') !== false ){
