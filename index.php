@@ -221,14 +221,28 @@ foreach ($events as $event) {
 
   // 基本情報：各項目をそれぞれの変数に代入
   $ages = $parameter[0];            // 年齢
-  $partner = $parameter[1];         // 配偶者の有無
+
+  if( $parameter[1] == '配偶者あり'){      // 配偶者の有無
+      $partner = 'あり';
+  }elseif( $parameter[1] == '配偶者なし'){
+      $partner = 'なし';
+  }else{
+      $partner = $parameter[1];
+  }
+
   $dependants = $parameter[2];      // 扶養家族の数
   $location = $parameter[3];        // 勤務地の都道府県
   $space = $parameter[4];           // お住まいの居住空間の広さ
   $houserent = $parameter[5];       // お住まいの家賃
   $before_salary = $parameter[6];   // 現在の月額給与
-  $bonus = $parameter[7];    // 現在の年間賞与
 
+  if( strpos($parameter[7],'詳細') !== false ){ // 現在の年間賞与、詳細・確認ステータスを除外
+    $bonus = str_replace('詳細', '', $parameter[7]);
+  }elseif( strpos($parameter[7],'確認' !== false ){
+    $bonus = str_replace('確認', '', $parameter[7]);
+  }else{
+    $bonus = $parameter[7];
+  }
 
   //入力のバリデーション
   if( substr_count($parameters, '、') < 7){
