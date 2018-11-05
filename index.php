@@ -526,7 +526,7 @@ if( $dependants == 0 ){
 // 都道府県による住宅利益の分類 終了---------------------------------------
 
 // 導入後、社会保険料の計算対象に加算される現物支給額の計算
-  $in_kind_as_house = $space * $housebenefit;
+  $in_kind_as_house = $space * $housebenefit -$rest_payment;
 
 // 導入後の給与に現物給与支給額を加算
   $after_salary_in_kind = $after_salary + $in_kind_as_house;
