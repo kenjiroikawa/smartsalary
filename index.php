@@ -1571,7 +1571,7 @@ if($dependants == 0 ){
   $calculation[] = $before_yearly_income;                   // [10] 導入前：年収
   $calculation[] = $before_health_insurance_expense;        // [11] 導入前：健康保険料
   $calculation[] = $before_pension_premiums;                // [12] 導入前：厚生年金保険料
-  $calculation[] = $before_income_tax;                      // [13] 導入前：所得税
+  $calculation[] = $before_income_tax;                      // [13] 導入前：所得税 源泉徴収額
   $calculation[] = $before_inhabitant_tax;                  // [14] 導入前：住民税
   $calculation[] = $before_disposable_income;               // [15] 導入前：社保、税金、家賃控除後の可処分所得
 
@@ -1581,7 +1581,7 @@ if($dependants == 0 ){
   $calculation[] = $after_yearly_income;                    // [19] 導入後：年収
   $calculation[] = $after_health_insurance_expense;         // [20] 導入後：健康保険料
   $calculation[] = $after_pension_premiums;                 // [21] 導入後：厚生年金保険料
-  $calculation[] = $after_income_tax;                       // [22] 導入後：所得税
+  $calculation[] = $after_income_tax;                       // [22] 導入後：所得税 源泉徴収額
   $calculation[] = $after_inhabitant_tax;                   // [23] 導入後：住民税
   $calculation[] = $after_disposable_income;                // [24] 導入後：社保、税金、家賃控除後の可処分所得
 
@@ -1600,25 +1600,24 @@ if($dependants == 0 ){
   $calculation[] = $bonus_pretax;                           // [35]賞与の社会保険料控除後の金額
   $calculation[] = $bonus_income_tax;                       // [36]賞与の源泉徴収金額
   $calculation[] = $before_pretax_salary;                   // [37]導入前の所得税・源泉徴収対象金額
-  $calculation[] = $after_income_tax;                       // [38]導入後の課税対象金額
-  $calculation[] = $after_pretax_salary;                    // [39]導入後の所得税・源泉徴収対象金額
+  $calculation[] = $after_pretax_salary;                    // [38]導入後の所得税・源泉徴収対象金額
 
-  $calculation[] = $before_employment_insurance;            // [40]導入前の雇用保険料
-  $calculation[] = $after_employment_insurance;             // [41]導入後の雇用保険料
+  $calculation[] = $before_employment_insurance;            // [39]導入前の雇用保険料
+  $calculation[] = $after_employment_insurance;             // [40]導入後の雇用保険料
 
-  $calculation[] = $before_income_tax_total;                // [42]導入前の所得税年額
-  $calculation[] = $after_income_tax_total;                 // [43]導入後の所得税年額
+  $calculation[] = $before_income_tax_total;                // [41]導入前の所得税年額
+  $calculation[] = $after_income_tax_total;                 // [42]導入後の所得税年額
 
 // ユーザーにシミュレーション結果等を返信
   $message0 = "【シミュレーション結果】\n\nスマートサラリーを導入すると最大で毎月$calculation[25]円多く手元に残るようになります。\n\n内訳\n・1ヶ月後 所得税分\n→　$calculation[30]円　UP!!\n・4ヶ月後 社会保険料分\n→　$calculation[31]円　UP!!\n・翌年度以降 住民税分\n→最大　$calculation[32]円　UP!!\n\n※住民税分は導入時期によって変動します。";
 
   $message1 = "【基本情報】\n\n年齢：$calculation[0]歳\n配偶者：$calculation[1]\n扶養家族：$calculation[2]人\n勤務地の都道府県：$calculation[3]\n\n家賃：$calculation[4]円\n自宅の居住空間の広さ：$calculation[5]畳\n$calculation[3]の住宅利益：1畳あたり$calculation[6]円\n現物支給額換算：$calculation[7]円";
 
-  $message2 = "【スマートサラリー導入前】\n\n月額給与：$calculation[8]円\n年間賞与：$calculation[9]円\n年収：$calculation[10]円\n\n健康保険料：$calculation[11]円\n厚生年金保険料：$calculation[12]円\n雇用保険料：$calculation[40]円\n所得税：$calculation[13]円\n住民税：$calculation[14]円\n社保、税金、家賃控除後の可処分所得：$calculation[15]円";
+  $message2 = "【スマートサラリー導入前】\n\n月額給与：$calculation[8]円\n年間賞与：$calculation[9]円\n年収：$calculation[10]円\n\n健康保険料：$calculation[11]円\n厚生年金保険料：$calculation[12]円\n雇用保険料：$calculation[39]円\n所得税：$calculation[13]円\n住民税：$calculation[14]円\n社保、税金、家賃控除後の可処分所得：$calculation[15]円";
 
-  $message3 = "【スマートサラリー導入後】\n\n会社負担家賃（家賃×0.8）：$calculation[16]円\n本人負担家賃（家賃×0.2）：$calculation[17]円\n\n月額給与：$calculation[18]円\n年間賞与：$calculation[9]円\n年収：$calculation[19] 円\n\n健康保険料：$calculation[20]円\n厚生年金保険料：$calculation[21]円\n雇用保険料：$calculation[41]円\n所得税：$calculation[22]円\n住民税：$calculation[23]円\n社保、税金、家賃控除後の可処分所得：$calculation[24]円\n\nスマートサラリー導入効果：$calculation[25]円\n";
+  $message3 = "【スマートサラリー導入後】\n\n会社負担家賃（家賃×0.8）：$calculation[16]円\n本人負担家賃（家賃×0.2）：$calculation[17]円\n\n月額給与：$calculation[18]円\n年間賞与：$calculation[9]円\n年収：$calculation[19] 円\n\n健康保険料：$calculation[20]円\n厚生年金保険料：$calculation[21]円\n雇用保険料：$calculation[40]円\n所得税：$calculation[22]円\n住民税：$calculation[23]円\n社保、税金、家賃控除後の可処分所得：$calculation[24]円\n\nスマートサラリー導入効果：$calculation[25]円\n";
 
-  $message4 = "【開発確認用パラメータ】\n\n年収：$calculation[10]円\n給与所得控除：$calculation[26]円\n所得控除：$calculation[27]円\n住民税年額：$calculation[28]円\n住民税月額：$calculation[29]円\n\n所得税差分：$calculation[30]円\n社会保険料差分：$calculation[31]円\n住民税差分：$calculation[32]円\n可処分所得増加分の検算：$calculation[33]円\n\n賞与の社会保険料$calculation[34]円\n賞与の社会保険料控除後の金額$calculation[35]円\n 賞与の源泉徴収金額$calculation[36]円\n\n導入前の所得税・源泉徴収対象金額$calculation[37]円\n導入後の課税対象金額$calculation[38]円\n導入後の所得税の源泉徴収金額：$calculation[39]円\n\n導入前の所得税年額$calculation[42]円\n導入後の所得税年額$calculation[43]円";
+  $message4 = "【開発確認用パラメータ】\n\n年収：$calculation[10]円\n給与所得控除：$calculation[26]円\n所得控除：$calculation[27]円\n住民税年額：$calculation[28]円\n住民税月額：$calculation[29]円\n\n所得税差分：$calculation[30]円\n社会保険料差分：$calculation[31]円\n住民税差分：$calculation[32]円\n可処分所得増加分の検算：$calculation[33]円\n\n賞与の社会保険料$calculation[34]円\n賞与の社会保険料控除後の金額$calculation[35]円\n賞与の源泉徴収金額$calculation[36]円\n\n導入前の所得税・源泉徴収対象金額$calculation[37]円\n導入前の所得税の源泉徴収金額：$calculation[13]円\n導入後の課税対象金額$calculation[38]円\n導入後の所得税の源泉徴収金額：$calculation[22]円\n\n導入前の所得税年額$calculation[41]円\n導入後の所得税年額$calculation[42]円";
 
   // メッセージをユーザーに返信
   if( strpos($parameters,'詳細') !== false ){
