@@ -243,7 +243,7 @@ foreach ($events as $event) {
     $error = "都道府県の入力に誤りがあります。勤務先の都道府県を漢字で入力してください。\n\n（例）東京都";
     $bot->replyText($event->getReplyToken(), $error);
     exit;
-  }elseif( $partner != "あり" || $partner != "なし" ){
+  }elseif( $partner != "あり" && $partner != "なし" ){
     $error = "配偶者については「あり」または「なし」で入力してください。";
     $bot->replyText($event->getReplyToken(), $error);
     exit;
