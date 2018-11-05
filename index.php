@@ -243,6 +243,10 @@ foreach ($events as $event) {
     $error = "都道府県の入力に誤りがあります。勤務先の都道府県を漢字で入力してください。\n\n（例）東京都";
     $bot->replyText($event->getReplyToken(), $error);
     exit;
+  }elseif( $partner != "あり" || $partner != "なし" ){
+    $error = "配偶者については、「あり」または「なし」で入力してください。";
+    $bot->replyText($event->getReplyToken(), $error);
+    exit;
   }elseif(!preg_match("/^[0-9]+$/",$space) == 1 ){
     $error = "住宅広さの入力に誤りがあります。お住まいの住宅の広さ（畳）を半角数値で入力してください。\n\n（例）2LDK リビング8畳、洋室6畳、和室6畳の場合\n→「20」と入力してください。";
     $bot->replyText($event->getReplyToken(), $error);
