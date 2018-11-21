@@ -1023,22 +1023,22 @@ if($dependants == 0 ){
     $before_income_tax_total = ($before_taxable_income - 0 ) * 0.05;
   }elseif($before_taxable_income > 1950000 && $before_taxable_income <= 3300000){
     $before_tax_rate = 10;
-    $before_income_tax_total = ($before_taxable_income - 97500 ) * 0.1;
+    $before_income_tax_total = ($before_taxable_income * 0.1 ) - 97500;
   }elseif($before_taxable_income > 3300000 && $before_taxable_income <= 6950000){
     $before_tax_rate = 20;
-    $before_income_tax_total = ($before_taxable_income - 427500 ) * 0.2;
+    $before_income_tax_total = ($before_taxable_income * 0.2 ) - 427500 ;
   }elseif($before_taxable_income > 6950000 && $before_taxable_income <= 9000000){
     $before_tax_rate = 23;
-    $before_income_tax_total = ($before_taxable_income - 636000 ) * 0.23;
+    $before_income_tax_total = ($before_taxable_income * 0.23 ) - 636000;
   }elseif($before_taxable_income > 9000000 && $before_taxable_income <= 18000000){
     $before_tax_rate = 33;
-    $before_income_tax_total = ($before_taxable_income - 1536000 ) * 0.33;
+    $before_income_tax_total = ($before_taxable_income * 0.33 ) - 1536000;
   }elseif($before_taxable_income > 18000000 && $before_taxable_income <= 40000000){
     $before_tax_rate = 40;
-    $before_income_tax_total = ($before_taxable_income - 2796000 ) * 0.4;
+    $before_income_tax_total = ($before_taxable_income * 0.4 ) - 2796000;
   }elseif($before_taxable_income > 40000000){
     $before_tax_rate = 45;
-    $before_income_tax_total = ($before_taxable_income - 4796000 ) * 0.45;
+    $before_income_tax_total = ($before_taxable_income * 0.45 ) - 4796000;
   }
 
   // 住民税計算用の課税対象金額の計算
@@ -1538,22 +1538,22 @@ if($dependants == 0 ){
       $after_income_tax_total = ($after_taxable_income - 0 ) * 0.05;
     }elseif($after_taxable_income > 1950000 && $after_taxable_income <= 3300000){
       $after_tax_rate = 10;
-      $after_income_tax_total = ($after_taxable_income - 97500 ) * 0.1;
+      $after_income_tax_total = ($after_taxable_income * 0.1 ) - 97500;
     }elseif($after_taxable_income > 3300000 && $after_taxable_income <= 6950000){
       $after_tax_rate = 20;
-      $after_income_tax_total = ($after_taxable_income - 427500 ) * 0.2;
+      $after_income_tax_total = ($after_taxable_income * 0.2 ) - 427500;
     }elseif($after_taxable_income > 6950000 && $after_taxable_income <= 9000000){
       $after_tax_rate = 23;
-      $after_income_tax_total = ($after_taxable_income - 636000 ) * 0.23;
+      $after_income_tax_total = ($after_taxable_income * 0.23 ) - 636000;
     }elseif($after_taxable_income > 9000000 && $after_taxable_income <= 18000000){
       $after_tax_rate = 33;
-      $after_income_tax_total = ($after_taxable_income - 1536000 ) * 0.33;
+      $after_income_tax_total = ($after_taxable_income * 0.33 ) - 1536000;
     }elseif($after_taxable_income > 18000000 && $after_taxable_income <= 40000000){
       $after_tax_rate = 40;
-      $after_income_tax_total = ($after_taxable_income - 2796000 ) * 0.4;
+      $after_income_tax_total = ($after_taxable_income * 0.4 ) - 2796000;
     }elseif($after_taxable_income > 40000000){
       $after_tax_rate = 45;
-      $after_income_tax_total = ($after_taxable_income - 4796000 ) * 0.45;
+      $after_income_tax_total = ($after_taxable_income * 0.45 ) - 4796000;
     }
 
 
